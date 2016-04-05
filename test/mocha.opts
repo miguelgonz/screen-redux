@@ -1,0 +1,2 @@
+--require chai
+--compilers .:test/utils/compiler.js

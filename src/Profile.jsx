@@ -2,12 +2,9 @@ import React from 'react';
 import ProgressBar from './ProgressBar.jsx';
 
 module.exports = React.createClass({
-		onToggle: function () {
-				this.props.onCheckToggle(this.props.profile.key, this.refs.checkbox.checked);
-		},
 		toggle: function () {
 				this.refs.checkbox.checked = !this.refs.checkbox.checked;
-				this.onToggle();
+				this.props.onCheckToggle(this.props.profile.key, this.refs.checkbox.checked);
 		},
 		render: function () {
 				const profile = this.props.profile;
@@ -22,7 +19,7 @@ module.exports = React.createClass({
 				}
 				let checkbox = '';
 				if (typeof this.props.onCheckToggle === 'function') {
-						checkbox = <input checked={profile.checked} type="checkbox" ref="checkbox" onClick={this.onToggle}/>
+						checkbox = <input checked={profile.checked} type="checkbox" ref="checkbox"/>
 				}
 
 				return <tr className={className} onClick={this.toggle}>

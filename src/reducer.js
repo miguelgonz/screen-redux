@@ -1,5 +1,5 @@
-import names from './data/names.js';
-import _ from 'lodash';
+var names  = require('./data/names.js');
+var _ = require('lodash');
 
 const genders = ['male', 'female'];
 
@@ -23,8 +23,11 @@ const initialState = {
 		profiles: [getRandomPerson(0)]
 };
 
-module.exports = function(state = initialState, action) {
-		let newState = Object.assign({}, state);
+module.exports = function(state, action) {
+		if (!state) {
+				state = initialState;
+		}
+		var newState = _.cloneDeep(state);
 
 		switch (action.type) {
 			case 'ADD_PROFILE':
