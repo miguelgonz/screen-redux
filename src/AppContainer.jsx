@@ -6,18 +6,27 @@ import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
 		return {
-				canAction: _.filter(state.profiles, (profile) => profile.checked ),
-				profiles: _.filter(_.filter(state.profiles,
-					(profile) => profile.strength > state.filters.strength), 
-					(profile) => state.filters.gender === false || profile.gender === state.filters.gender)
+				canAction: _.filter(state.profiles, (profile) => profile.checked).length > 0,
 
+				resolvedProfiles: _.filter(state.profiles,
+					(profile) => profile.status !== 'unresolved'),
+
+				profiles: _.filter(state.profiles,
+					(profile) => 
+							profile.status === 'unresolved' && 
+							profile.strength > state.filters.strength && 
+							(state.filters.gender === false || profile.gender === state.filters.gender)
+				)
 		};
 }
 
 function mapDispatchToProps(dispatch) {
 		return {
-			'onClick': () => {
-					dispatch({type: 'bump'});
+			'onResolve': () => {
+					dispatch({type: 'RESOLVE'});
+			},
+			'onReject': () => {
+					dispatch({type: 'REJECT'});
 			},
 			'onFilterChange': (filter, value) => {
 					dispatch({
@@ -29,6 +38,13 @@ function mapDispatchToProps(dispatch) {
 			'onAddProfile': () => {
 					dispatch({
 							type: 'ADD_PROFILE',
+					});
+			},
+			'onProfileChecked': (key, on) => {
+					dispatch({
+							type: 'TICK_PROFILE',
+							checked: on,
+							key: key
 					});
 			}
 		};

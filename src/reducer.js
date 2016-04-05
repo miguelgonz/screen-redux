@@ -31,18 +31,10 @@ module.exports = function(state = initialState, action) {
 				newState.profiles.push(getRandomPerson(state.profiles.length + 1));	
 				break;
 			case 'REJECT':
-				newState.profiles = _.map(newState.profiles, (profile) => {
-						if (profile.checked) {
-							profile.status = 'rejected';
-							profile.checked = false;
-						}
-						return profile;
-				});
-				break;
 			case 'RESOLVE':
 				newState.profiles = _.map(newState.profiles, (profile) => {
 						if (profile.checked) {
-							profile.status = 'resolved';
+							profile.status = action.type === 'REJECT' ? 'rejected' : 'resolved';
 							profile.checked = false;
 						}
 						return profile;
