@@ -6,6 +6,7 @@ module.exports = React.createClass({
 				var profiles = this.props.data.map(function (profile) {
 						return <tr key={profile.key}>
 							<td>{profile.name}</td>
+							<td>{profile.gender}</td>
 							<td>
 								<ProgressBar value={profile.strength} />
 							</td>
@@ -16,6 +17,7 @@ module.exports = React.createClass({
 					<thead>
 						<tr>
 							<td>Name</td>
+							<td>Gender</td>
 							<td>Strength</td>
 						</tr>
 					</thead>
