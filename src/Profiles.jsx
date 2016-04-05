@@ -1,17 +1,14 @@
 import React from 'react';
-import ProgressBar from './ProgressBar.jsx';
+import Profile from './Profile.jsx';
 
 module.exports = React.createClass({
+		onProfileChecked: function (profileId, checked) {
+				this.props.onProfileChecked(profileId, checked);
+		},
 		render: function () {
 				var profiles = this.props.data.map(function (profile) {
-						return <tr key={profile.key}>
-							<td>{profile.name}</td>
-							<td>{profile.gender}</td>
-							<td>
-								<ProgressBar value={profile.strength} />
-							</td>
-						</tr>;
-				});
+						return <Profile onCheckToggle={this.onProfileChecked} key={profile.key} profile={profile}/>
+				}.bind(this));
 
 				return <table className="profiles table table-striped table-bordered">
 					<thead>

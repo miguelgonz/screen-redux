@@ -1,22 +1,26 @@
 import names from './data/names.js';
 import _ from 'lodash';
 
+const genders = ['male', 'female'];
+
+function getRandomPerson(key) {
+		return {
+			key: key,
+			status: 'unresolved',
+			name: _.sample(names.first) + ' ' + _.sample(names.surnames),
+			gender: _.sample(genders),
+			strength: _.random(10,99),
+			checked: false
+		};
+}
+
 const initialState = {
-		counter: 0,
 		filters: {
 				gender: false,
 				country: false,
 				strength: 0
 		},
-		profiles: [
-			{
-					key: 0,
-					status: 'resolved',
-					name: 'Osama bin laden',
-					gender: 'male',
-					strength: 60
-			}
-		]
+		profiles: [getRandomPerson(0)]
 };
 
 module.exports = function(state = initialState, action) {
@@ -24,18 +28,34 @@ module.exports = function(state = initialState, action) {
 
 		switch (action.type) {
 			case 'ADD_PROFILE':
-				const profile = {
-					key: state.profiles.length + 1,
-					status: 'unresolved',
-					name: _.sample(names.first) + ' ' + _.sample(names.surnames),
-					gender: Math.random() > .5 ? 'male' : 'female',
-					strength: Math.floor(Math.random()*90) +10 
-				};
-				newState.profiles.push(profile);	
+				newState.profiles.push(getRandomPerson(state.profiles.length + 1));	
 				break;
-
+			case 'REJECT':
+				newState.profiles = _.map(newState.profiles, (profile) => {
+						if (profile.checked) {
+							profile.status = 'rejected';
+							profile.checked = false;
+						}
+						return profile;
+				});
+				break;
 			case 'RESOLVE':
-			case 'TICK_PERSON':
+				newState.profiles = _.map(newState.profiles, (profile) => {
+						if (profile.checked) {
+							profile.status = 'resolved';
+							profile.checked = false;
+						}
+						return profile;
+				});
+				break;
+			case 'TICK_PROFILE':
+				_.forEach(newState.profiles, (profile, index) => {
+						if (profile.key === action.key) {
+							newState.profiles[index].checked = action.checked;
+							return false;
+						}
+				});
+				break;
 			case 'CHANGE_FILTER':
 				if (newState.filters.hasOwnProperty(action.filter)) {
 					newState.filters[action.filter] = action.value;
@@ -45,3 +65,4 @@ module.exports = function(state = initialState, action) {
 
 		return newState;
 };
+

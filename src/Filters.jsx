@@ -18,7 +18,7 @@ module.exports = React.createClass({
 		render: function () {
 				return <div className="row">
 					<div className="col-sm-4">
-							<label>Strength</label>
+							<label>Strength</label>&nbsp;
 							<select ref="strength" onChange={this.updateStrength}>
 								<option value="0">Any</option>
 								<option value="25">&gt;25</option>
@@ -27,7 +27,7 @@ module.exports = React.createClass({
 							</select>
 					</div>
 					<div className="col-sm-4">
-							<label>Country</label>
+							<label>Country</label>&nbsp;
 							<select ref="country" onChange={this.updateCountry}>
 								<option value="false">Any</option>
 								<option value="uk">UK</option>
@@ -35,7 +35,7 @@ module.exports = React.createClass({
 							</select>
 					</div>
 					<div className="col-sm-4">
-							<label>Gender</label>
+							<label>Gender</label>&nbsp;
 							<select ref="gender" onChange={this.updateGender}>
 								<option value="false">Any</option>
 								<option value="male">Male</option>
