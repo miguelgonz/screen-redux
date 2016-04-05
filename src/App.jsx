@@ -6,6 +6,7 @@ import Filters from './Filters.jsx';
 module.exports = React.createClass({
 	render: function () {
 			const actionDisabled = !this.props.canAction;
+
 			return <div className="app">
 				<div className="btn-group">
 						<Button disabled={actionDisabled} icon="ok" type="success" onClick={this.props.onResolve} label="Resolve" />
@@ -15,11 +16,9 @@ module.exports = React.createClass({
 
 				<Filters onFilterChange={this.props.onFilterChange} />
 
-				<h2>Unresolved</h2>
-				<Profiles onProfileChecked={this.props.onProfileChecked} data={this.props.profiles} />
+				<Profiles title="Unresolved" onProfileChecked={this.props.onProfileChecked} data={this.props.profiles} />
 
-				<h2>Resolved</h2>
-				<Profiles data={this.props.resolvedProfiles} />
+				<Profiles title="Resolved" data={this.props.resolvedProfiles} />
 			</div>;
 	}
 });

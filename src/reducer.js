@@ -29,6 +29,7 @@ module.exports = function(state = initialState, action) {
 		switch (action.type) {
 			case 'ADD_PROFILE':
 				newState.profiles.push(getRandomPerson(state.profiles.length + 1));	
+				newState.profiles = _.sortBy(newState.profiles, (p) => -p.strength)
 				break;
 			case 'REJECT':
 			case 'RESOLVE':

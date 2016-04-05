@@ -15,17 +15,25 @@ module.exports = React.createClass({
 						return <Profile onCheckToggle={checkAction} key={profile.key} profile={profile}/>
 				}.bind(this));
 
-				return <table className="profiles table table-striped table-bordered">
-					<thead>
-						<tr>
-							<td>Name</td>
-							<td>Gender</td>
-							<td>Strength</td>
-						</tr>
-					</thead>
-					<tbody>
-						{profiles}
-					</tbody>
-				</table>;
+				let content = <div className="alert alert-warning">Sorry, there is nothing here</div>
+				if (profiles.length) {
+						content = <table className="profiles table table-striped table-bordered">
+							<thead>
+								<tr>
+									<td>Name</td>
+									<td>Gender</td>
+									<td>Strength</td>
+								</tr>
+							</thead>
+							<tbody>
+								{profiles}
+							</tbody>
+						</table>
+				}
+
+				return <div>
+						<h2>{this.props.title}</h2>
+						{content}
+					</div>
 		}
 });
