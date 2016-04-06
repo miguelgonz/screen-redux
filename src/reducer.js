@@ -47,7 +47,7 @@ module.exports = function(state, action) {
 			case 'TICK_PROFILE':
 				_.forEach(newState.profiles, (profile, index) => {
 						if (profile.key === action.key) {
-							newState.profiles[index].checked = action.checked;
+							newState.profiles[index].checked = !!action.checked;
 							return false;
 						}
 				});
